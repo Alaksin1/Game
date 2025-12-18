@@ -1,34 +1,5 @@
 <!DOCTYPE html>
 <html>
-<body>
-  <canvas id="gameCanvas" width="800" height="400" style="border:1px solid #000;"></canvas>
-
-  <script>
-    const canvas = document.getElementById("gameCanvas");
-    const ctx = canvas.getContext("2d");
-
-    let x = 50; // Starting position
-
-    function gameLoop() {
-      // 1. Clear the screen
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      // 2. Update logic
-      x += 2; 
-      if (x > canvas.width) x = 0; // Wrap around
-
-      // 3. Draw
-      ctx.fillStyle = "red";
-      ctx.fillRect(x, 150, 50, 50);
-
-      requestAnimationFrame(gameLoop); // Calls the loop again ~60fps
-    }
-
-    gameLoop();
-  </script>
-</body>
-</html><!DOCTYPE html>
-<html>
 <head>
     <title>Red Circle Game</title>
     <style>
