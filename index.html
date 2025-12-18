@@ -27,4 +27,67 @@
     gameLoop();
   </script>
 </body>
+</html><!DOCTYPE html>
+<html>
+<head>
+    <title>Red Circle Game</title>
+    <style>
+        body { background: #333; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; color: white; font-family: sans-serif; }
+        canvas { background: black; border: 3px solid #555; display: block; }
+        #instructions { position: absolute; top: 10px; text-align: center; width: 100%; pointer-events: none; }
+    </style>
+</head>
+<body>
+    <div id="instructions">Use ARROW KEYS to move<br>(Click the black box if it doesn't move)</div>
+    <canvas id="gameCanvas" width="600" height="400"></canvas>
+
+    <script>
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+
+        // Player Data
+        const player = { x: 300, y: 200, size: 20, speed: 5 };
+
+        // Keyboard Tracking
+        const keys = {};
+        window.addEventListener("keydown", (e) => { keys[e.code] = true; });
+        window.addEventListener("keyup", (e) => { keys[e.code] = false; });
+
+        function update() {
+            // Movement Logic
+            if (keys["ArrowUp"])    player.y -= player.speed;
+            if (keys["ArrowDown"])  player.y += player.speed;
+            if (keys["ArrowLeft"])  player.x -= player.speed;
+            if (keys["ArrowRight"]) player.x += player.speed;
+
+            // Simple Screen Wrap-around (so you never lose the circle)
+            if (player.x < 0) player.x = canvas.width;
+            if (player.x > canvas.width) player.x = 0;
+            if (player.y < 0) player.y = canvas.height;
+            if (player.y > canvas.height) player.y = 0;
+        }
+
+        function draw() {
+            // Clear Screen
+            ctx.fillStyle = "black";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Draw Red Circle
+            ctx.fillStyle = "red";
+            ctx.beginPath();
+            ctx.arc(player.x, player.y, player.size, 0, Math.PI * 2);
+            ctx.fill();
+
+            requestAnimationFrame(main);
+        }
+
+        function main() {
+            update();
+            draw();
+        }
+
+        // Start the loop
+        main();
+    </script>
+</body>
 </html>
